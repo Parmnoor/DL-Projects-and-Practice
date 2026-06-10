@@ -125,8 +125,8 @@ churn = (rng.random(N) < churn_prob).astype(int)
 # ----------------------------------------------------------------------
 days_since_visit = np.where(
     churn == 1,
-    rng.integers(30, 180, N),    # churned: gone for 1-6 months
-    rng.integers(0, 21, N)       # active: visited within 3 weeks
+    rng.integers(7, 180, N),    # churned: some visited recently (overlap with active)
+    rng.integers(0, 60, N)      # active: some haven't come in a while (overlap with churned)
 )
 # Last visit can't predate joining
 days_since_visit = np.minimum(days_since_visit, tenure_days - 1)
